@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in aesop.gemspec
 gemspec
 
-gem "configatron", :github => 'jwkoelewijn/configatron.git'
+gem "configatron", :github => 'jwkoelewijn/configatron'
 
 group :test do
   gem "codeclimate-test-reporter",  :require => false
