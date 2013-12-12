@@ -1,0 +1,25 @@
+
+language: ruby
+cache: bundler
+
+jdk:
+  - oraclejdk7
+
+rvm:
+  - 1.8.7
+  - 1.9.3
+  - 2.0.0
+  - rbx-19mode
+  - jruby-19mode
+  - ruby-head
+  - jruby-head
+
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: jruby-head
+    - rvm: rbx-19mode
+
+addons:
+  code_climate:
+    repo_token: 9bede88cca496fd753c239d58f8007f5fc4787653195a840c352faf6c529453a
