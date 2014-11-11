@@ -79,7 +79,7 @@ class Aesop::Aesop
 
   def within_window?( exception )
     res = if deployed_time = retrieve_deployment_time
-      (Time.now - retrieve_deployment_time) < exception_time_threshold(exception)
+      (Time.now - deployed_time) < exception_time_threshold(exception)
     else
       false
     end
@@ -122,9 +122,10 @@ class Aesop::Aesop
   end
 
   def redis
-    unless @redis
+    if @redis.nil? || !@redis.connected?
       begin
         @redis = Redis.new(redis_options)
+        debugger unless @redis
         @redis.select( configuration.redis.database )
       rescue => e
         raise RedisConnectionException.new( e )

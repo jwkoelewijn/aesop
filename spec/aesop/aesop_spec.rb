@@ -80,6 +80,12 @@ describe Aesop::Aesop do
       lambda{subject.redis}.should raise_error( Aesop::RedisConnectionException )
     end
 
+    it 'reconnectes when not connected to redis anymore' do
+      subject.redis.stub(:connected?).and_return(false)
+      expect(Redis).to receive(:new).and_call_original
+      subject.redis
+    end
+
     it 'dispatches each and every exception when an array is provided' do
       exceptions = []
       5.times do
