@@ -81,7 +81,7 @@ describe Aesop::Aesop do
     end
 
     it 'reconnectes when not connected to redis anymore' do
-      subject.redis.stub(:connected?).and_return(false)
+      subject.redis.client.stub(:connected?).and_return(false)
       expect(Redis).to receive(:new).and_call_original
       subject.redis
     end

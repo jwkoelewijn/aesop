@@ -122,7 +122,7 @@ class Aesop::Aesop
   end
 
   def redis
-    if @redis.nil? || !@redis.connected?
+    if @redis.nil? || (@redis.client && !@redis.client.connected?)
       begin
         @redis = Redis.new(redis_options)
         @redis.select( configuration.redis.database )

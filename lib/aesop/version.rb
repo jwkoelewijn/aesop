@@ -3,7 +3,7 @@ module Aesop
     MAJOR = 1
     MINOR = 1
     PATCH = 0
-    BUILD = 1
+    BUILD = 2
   end
 
   VERSION = [Version::MAJOR, Version::MINOR, Version::PATCH, Version::BUILD].compact.join('.')
