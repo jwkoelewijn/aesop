@@ -125,7 +125,6 @@ class Aesop::Aesop
     if @redis.nil? || !@redis.connected?
       begin
         @redis = Redis.new(redis_options)
-        debugger unless @redis
         @redis.select( configuration.redis.database )
       rescue => e
         raise RedisConnectionException.new( e )
