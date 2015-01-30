@@ -1,5 +1,4 @@
 require 'singleton'
-
 class Aesop::Aesop
   include Singleton
   include ::Aesop
@@ -28,9 +27,19 @@ class Aesop::Aesop
   end
 
   def catch_exception(exception)
+    log_exception(exception)
     store_exception_occurrence(exception)
     if should_dispatch?(exception)
       dispatch_exception(exception)
+    end
+  end
+
+  def log_exception(exception)
+    Aesop::Logger.debug(exception.message)
+    if trace = exception.backtrace
+      trace.each do |line|
+        Aesop::Logger.debug(line)
+      end
     end
   end
 
