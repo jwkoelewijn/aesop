@@ -8,13 +8,11 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-unless RUBY_VERSION == "1.8.7"
-  require "codeclimate-test-reporter"
-  CodeClimate::TestReporter.start
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 
-  require 'simplecov'
-  SimpleCov.start
-end
+require 'simplecov'
+SimpleCov.start
 
 require 'rspec/core'
 
