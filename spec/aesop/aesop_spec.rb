@@ -47,16 +47,33 @@ describe Aesop::Aesop do
       subject.init
     end
 
-    it 'merges the redis password when it is given' do
-      password = "pa55word"
-      redis_conf = double
-      redis_conf.stub(:host)
-      redis_conf.stub(:port)
-      redis_conf.should_receive(:password).and_return(password)
-      subject.configuration.stub(:redis).and_return(redis_conf)
-      redis_options = subject.redis_options
-      redis_options.should have_key(:password)
-      redis_options[:password].should == password
+    describe '#redis_options' do
+      let(:opts){ subject.redis_options }
+
+      it 'configures a redis socket path if its configured' do
+        redis_conf = double
+        allow(redis_conf).to receive(:path).and_return('test')
+        allow(redis_conf).to receive(:password).and_return('')
+        allow(subject.configuration).to receive(:redis).and_return(redis_conf)
+
+        expect(opts).to     have_key(:path)
+        expect(opts).to_not have_key(:host)
+        expect(opts).to_not have_key(:port)
+        expect(opts[:path]).to eq 'test'
+      end
+
+      it 'merges the redis password when it is given' do
+        password = "pa55word"
+        redis_conf = double
+        redis_conf.stub(:host)
+        redis_conf.stub(:port)
+        allow(redis_conf).to receive(:path).and_return(nil)
+        redis_conf.should_receive(:password).and_return(password)
+        subject.configuration.stub(:redis).and_return(redis_conf)
+
+        opts.should have_key(:password)
+        opts[:password].should == password
+      end
     end
   end
 

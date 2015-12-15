@@ -120,14 +120,22 @@ class Aesop::Aesop
   end
 
   def redis_options
-    options = {
-      :host => configuration.redis.host,
-      :port => configuration.redis.port,
-    }
+    options = redis_host_or_socket_options
     if (password = configuration.redis.password) && !password.empty?
       options.merge!(:password => password)
     end
     options
+  end
+
+  def redis_host_or_socket_options
+    if configuration.redis.path
+      { path: configuration.redis.path }
+    else
+      {
+        host: configuration.redis.host,
+        port: configuration.redis.port,
+      }
+    end
   end
 
   def redis
