@@ -22,6 +22,4 @@ elsif defined? Rails
     # We need it to add dev mode routes after initialization finished.
     Aesop::Aesop.instance.init
   end
-else
-  Aesop::Aesop.instance.init
 end
