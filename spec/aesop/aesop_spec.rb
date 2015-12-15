@@ -1,6 +1,11 @@
 require File.join( File.dirname(__FILE__), '..', 'spec_helper')
 
 describe Aesop::Aesop do
+
+  before do
+    Aesop::Aesop.instance.init
+  end
+
   subject{ Aesop::Aesop.instance }
 
   context 'configuration' do
