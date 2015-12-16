@@ -17,3 +17,5 @@ test/version_tmp
 tmp
 DEPLOY_TIME
 .DS_STORE
+.ruby-*
+.rvmrc
