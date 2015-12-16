@@ -71,8 +71,8 @@ describe 'Creating Hooks' do
   end
 
   context 'Other' do
-    it 'inits' do
-      Aesop::Aesop.instance.should_receive(:init)
+    it 'does not init' do
+      expect(Aesop::Aesop.instance).to_not receive(:init)
       load_file
     end
   end
