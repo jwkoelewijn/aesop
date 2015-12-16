@@ -9,12 +9,12 @@ jdk:
 rvm:
   - 2.0.0
   - 2.2.3
+  - rbx-2.6
   - ruby-head
   - jruby-head
-  - rbx-head
+
 
 matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
-    - rvm: rbx-head
