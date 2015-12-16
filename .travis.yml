@@ -1,12 +1,14 @@
 language: ruby
 cache: bundler
 services: redis
+sudo: false
 
 jdk:
   - oraclejdk7
 
 rvm:
   - 2.0.0
+  - 2.2.3
   - ruby-head
   - jruby-head
   - rbx-head
