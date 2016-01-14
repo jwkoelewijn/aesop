@@ -15,18 +15,15 @@ describe Aesop::Logger do
   end
 
   it 'uses configuration to set logger name' do
-    config.logger.should_receive(:name).and_return('aesop')
-    @logger.log
+    @logger.log.name.should == 'aesop'
   end
 
   it 'uses configuration to set the outputter' do
-    config.logger.should_receive(:outputters).and_return('stdout')
-    @logger.log
+    @logger.log.outputters.first.should be_a Log4r::StdoutOutputter
   end
 
-  it 'uses configuration to set the lvel' do
-    config.logger.should_receive(:level).and_return(Aesop::Logger::WARN)
-    @logger.log
+  it 'uses configuration to set the level' do
+    @logger.log.level.should == Aesop::Logger::WARN
   end
 
   it 'returns an object of Log4r::Logger class' do

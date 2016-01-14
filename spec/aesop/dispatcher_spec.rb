@@ -1,4 +1,6 @@
 require File.join( File.dirname(__FILE__), '..', 'spec_helper')
+require File.join( File.dirname(__FILE__), '..', '..', 'lib', 'aesop', 'dispatchers', 'log_dispatcher')
+
 
 describe Aesop::Dispatcher do
   subject{ Aesop::Dispatcher.instance }
@@ -12,17 +14,14 @@ describe Aesop::Dispatcher do
     Singleton.__init__(Aesop::Dispatcher)
   end
 
-  before :all do
-    config.dispatchers = [:log_dispatcher]
-  end
-
   before :each do
     clear_instance
-  end
-
-  it 'collects and registers dispatchers when initialized' do
-    Aesop::Dispatcher.any_instance.should_receive(:collect_dispatchers)
-    Aesop::Dispatcher.instance
+    subject.configuration.dispatchers = [:log_dispatcher]
+    subject.configuration.logger do |logger|
+      logger.name = 'Aesop'
+      logger.level = Aesop::Logger::INFO
+      logger.outputters = 'stdout'
+    end
   end
 
   it 'knows how to get the configuration' do
@@ -30,7 +29,7 @@ describe Aesop::Dispatcher do
   end
 
   it 'uses the configuration to see which dispatchers should be created' do
-    subject.configuration.should_receive(:dispatchers).and_return([])
+    subject.configuration.dispatchers = []
     subject.collect_dispatchers
   end
 

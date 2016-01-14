@@ -57,7 +57,7 @@ describe Aesop::Aesop do
 
       it 'configures a redis socket path if its configured' do
         redis_conf = double
-        allow(redis_conf).to receive(:path).and_return('test')
+        allow(redis_conf).to receive(:path!).and_return('test')
         allow(redis_conf).to receive(:password).and_return('')
         allow(subject.configuration).to receive(:redis).and_return(redis_conf)
 
@@ -72,7 +72,7 @@ describe Aesop::Aesop do
         redis_conf = double
         redis_conf.stub(:host)
         redis_conf.stub(:port)
-        allow(redis_conf).to receive(:path).and_return(nil)
+        allow(redis_conf).to receive(:path!).and_raise(Configatron::UndefinedKeyError.new(:path))
         redis_conf.should_receive(:password).and_return(password)
         subject.configuration.stub(:redis).and_return(redis_conf)
 

@@ -17,9 +17,9 @@ module Aesop
       end
 
       def setup
-        logger = Log4r::Logger.new(configuration.name)
-        logger.level = configuration.level
-        logger.outputters = configuration.outputters
+        logger = Log4r::Logger.new(configuration.name!)
+        logger.level = configuration.level!
+        logger.outputters = configuration.outputters!
         logger
       end
 

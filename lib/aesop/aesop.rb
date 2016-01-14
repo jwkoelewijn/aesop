@@ -128,14 +128,14 @@ class Aesop::Aesop
   end
 
   def redis_host_or_socket_options
-    if configuration.redis.path
-      { path: configuration.redis.path }
-    else
-      {
-        host: configuration.redis.host,
-        port: configuration.redis.port,
-      }
+    options = {}
+    begin
+      options[:path] = configuration.redis.path!
+    rescue Configatron::UndefinedKeyError
+      options[:host] = configuration.redis.host
+      options[:port] = configuration.redis.port
     end
+    options
   end
 
   def redis
